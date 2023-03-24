@@ -22,4 +22,8 @@ Thumbs.db
 # Ignore built ts files
 dist/**/*
 
+# java
+.gradle
+.idea
+
 
