@@ -5,6 +5,7 @@
     },
     "dependencies": {
         "@pulumi/aws": "^5.23.0",
+        "@pulumi/aws-apigateway": "^1.0.1",
         "@pulumi/pulumi": "^3.49.0",
         "@pulumi/synced-folder": "^0.0.9",
         "typescript": "^4.0.0"

@@ -31,7 +31,7 @@ function createStaticWebSiteS3Bucket(): aws.s3.Bucket {
 
 const bucket: aws.s3.Bucket = createStaticWebSiteS3Bucket();
 
-export function createStaticWebsite(url : string): aws.cloudfront.Distribution {
+export function createStaticWebsite(): aws.cloudfront.Distribution {
 
     // TODO get URL into static site automatically
     // Or maybe Route53 https://www.pulumi.com/templates/static-website/aws/#using-your-own-web-content
