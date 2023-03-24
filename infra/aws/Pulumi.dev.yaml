@@ -1,0 +1,8 @@
+config:
+  aws-dfk:errorDocument: error.html
+  aws-dfk:indexDocument: index.html
+  aws-dfk:path: ./www
+  aws:region: eu-north-1
+  aws:defaultTags:
+    tags:
+      project: "dfk-demo"
