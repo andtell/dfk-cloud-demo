@@ -27,11 +27,35 @@ const fn_post = new aws.lambda.CallbackFunction("fn2", {
     }
 })
 
+const lambdaRole = new aws.iam.Role("lambdaRole", {
+    assumeRolePolicy: aws.iam.assumeRolePolicyForPrincipal({Service: "lambda.amazonaws.com"}),
+});
+
+const lambdaBasicExecutionRole = new aws.iam.RolePolicyAttachment("basicExecutionRole", {
+    role: lambdaRole.name,
+    policyArn: aws.iam.ManagedPolicy.AWSLambdaBasicExecutionRole,
+});
+
+// A Lambda function to invoke
+// https://www.pulumi.com/registry/packages/aws/api-docs/lambda/function/
+const myLamb = new aws.lambda.Function("java-vote-handler-fn", {
+    code: new pulumi.asset.FileArchive("../../aws-vote-app/app/build/distributions/app.zip"),
+    role: lambdaRole.arn,
+    
+    handler: "aws.vote.app.VoteLambda", // references the exported function in index.js
+    runtime: "java11",
+    environment: {
+        variables: {
+            foo: "bar",
+        },
+    },
+});
+
 // A REST API to route requests to HTML content and the Lambda function
 const api = new apigateway.RestAPI("api", {
     routes: [
         { path: "/", localPath: "www"},
-        { path: "/date", method: "GET", eventHandler: fn },
+        { path: "/test", method: "GET", eventHandler: myLamb },
         { path: "/aws", method: "POST", eventHandler: fn_post },
         { path: "/azure", method: "POST", eventHandler: fn_post },
         { path: "/gcp", method: "POST", eventHandler: fn_post },

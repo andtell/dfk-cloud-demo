@@ -23,6 +23,6 @@ class VoteLambdaTest {
         //var event = new HashMap<String,String>();
         Context context = new AwsLambdaTestSupport.TestContext();
         VoteLambda handler = new VoteLambda();
-        assertEquals(handler.handleRequest("hello", context), "hello");
+        assertEquals(handler.handleRequest("hello", context), "blah blah");
     }
 }

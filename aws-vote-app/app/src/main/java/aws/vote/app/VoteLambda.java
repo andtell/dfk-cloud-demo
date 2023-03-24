@@ -5,16 +5,15 @@ import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 
 // Handler value: example.HandlerString
-public class VoteLambda implements RequestHandler<String, String>{
+public class VoteLambda implements RequestHandler<Object, String>{
 
     @Override
     /*
      * Takes a String as input, and converts all characters to lowercase.
      */
-    public String handleRequest(String event, Context context)
-    {
+    public String handleRequest(Object event, Context context) { // https://stackoverflow.com/questions/37155595/aws-can-not-deserialize-instance-of-java-lang-string-out-of-start-object
         LambdaLogger logger = context.getLogger();
         logger.log("EVENT TYPE: " + event.getClass().toString());
-        return event.toLowerCase();
+        return "blah blah";
     }
 }
