@@ -1,0 +1,30 @@
+//import { DynamoDBClient, BatchExecuteStatementCommand, BatchExecuteStatementCommandInput } from "@aws-sdk/client-dynamodb";
+
+//const REGION: string = process.env.DYNAMO_DB_REGION ?? "eu-north-1"; 
+// a client can be shared by different commands.
+const client = new DynamoDBClient({ region: REGION });
+
+const params :BatchExecuteStatementCommandInput = {
+    Statements: undefined
+};
+
+// https://catalog.us-east-1.prod.workshops.aws/workshops/56ef6f79-74e2-4710-aefb-10b9807057a9/en-US/persisting-data/dynamodb/crud#increment-an-atomic-counter
+
+//export interface CloudVendor
+
+//export async function incrementVote()
+
+
+export async function execute(params: BatchExecuteStatementCommandInput): Promise<any> {
+    const command = new BatchExecuteStatementCommand(params);
+    try {
+        const data = await client.send(command);
+        // process data.
+      } catch (error) {
+        console.error("Error : " + error)
+      } finally {
+        // finally - nothing to do :-)
+      }
+      
+}
+
