@@ -1,11 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Hello, world!</title>
-</head>
+<html>
+    <script>
+
+        //const baseURL = "http://127.0.0.1:3000"
+
+        setInterval(() => {
+            fetch('score', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json', 
+            }
+            })
+            .then(response => response.text())
+            .then(data => document.getElementById("score").innerText = data ?? "no votes")
+        }, 5000);
+
+        function vote(cloud) {
+            // https://stackoverflow.com/questions/46640024/how-do-i-post-form-data-with-fetch-api
+            const formElement = document.getElementById("form");
+            const data = new URLSearchParams();
+            for (const pair of new FormData(formElement)) {
+                data.append(pair[0], pair[1]);
+            }
+
+            fetch('vote', {
+                // Adding method type
+                method: "POST",
+                // Adding body or contents to send
+                body: JSON.stringify({
+                    cloud: cloud,
+                    data: data
+                }),
+                
+                // Adding headers to the request
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+        })
+        }
+    </script>
+        
 <body>
-    <h1>Hello, world! 👋</h1>
-    <p>Deployed with 💜 by <a href="https://pulumi.com/">Pulumi</a>.</p>
+<h1>Villket är ditt favoritmoln?</h1>
+<form id="form">
+    <input name="email" value="test@example.com">
+    <input name="phone" value="0766354404">
+  </form>
+<button onclick="vote('aws')">AWS</button>
+<button onclick="vote('azure')">Azure</button>
+<button onclick="vote('gcp')">GCP</button>
+
+<h2 id="score"></h2>
+
 </body>
 </html>

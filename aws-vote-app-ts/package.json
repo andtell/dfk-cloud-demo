@@ -4,17 +4,26 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
     "prodbuild": "rm -rf dist && npm ci && npm run-script build",
-    "postbuild": "rm -f function.zip && cp -R node_modules dist && cd dist && zip -r ../function.zip ."
+    "postbuild": "rm -f function.zip && cp -R node_modules dist && cd dist && zip -r ../function.zip .",
+    "build": "tsc",
+    "test": "jest --coverage --no-cache --detectOpenHandles"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/aws-lambda": "^8.10.114",
+    "@types/jest": "^29.5.0",
     "@types/node": "^18.15.10",
+    "@types/uuid": "^9.0.1",
+    "ts-jest": "^29.0.5",
+    "ts-node": "^10.9.1",
     "typescript": "^5.0.2"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.301.0",
+    "aws-lambda": "^1.0.7",
+    "uuid": "^9.0.0"
   }
 }

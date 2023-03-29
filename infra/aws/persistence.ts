@@ -2,6 +2,7 @@ import * as aws from "@pulumi/aws";
 
 export function createVoteTable(): aws.dynamodb.Table {
     return new aws.dynamodb.Table("votes", {
+        name: 'votes',
         attributes: [
             {
                 name: 'id',

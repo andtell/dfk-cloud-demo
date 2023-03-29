@@ -11,6 +11,7 @@ coverage
 
 # API keys and secrets
 .env
+.csv
 
 # Dependency directory
 node_modules/
