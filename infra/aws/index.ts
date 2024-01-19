@@ -41,6 +41,8 @@ const dynamoDbExecutionRole2 = new aws.iam.RolePolicyAttachment("AmazonDynamoDBF
     policyArn: aws.iam.ManagedPolicy.AmazonDynamoDBFullAccess
 });
 
+const table: aws.dynamodb.Table  = createVoteTable();
+
 // A Lambda function to invoke
 // https://www.pulumi.com/registry/packages/aws/api-docs/lambda/function/
 // const myLamb = new aws.lambda.Function("java-vote-handler-fn", {
@@ -65,7 +67,7 @@ const vote_fn = new aws.lambda.Function("ts-vote-handler-fn", {
     runtime: "nodejs18.x",
     environment: {
         variables: {
-            foo: "bar",
+            VOTE_TABLE: table.name,
         },
     },
 });
@@ -82,14 +84,13 @@ const api = new apigateway.RestAPI("vote-api", {
 
 // ----------------------------------------------------------- persistence
 
-createVoteTable();
 
-
-
-
-const cdn = createStaticWebsite();
 
 // ----------------------------------------------------------- output
+
 export const url = api.url;
-export const cdnURL = pulumi.interpolate`https://${cdn.domainName}`;
-export const cdnHostname = cdn.domainName;
+
+// No need to use CDN
+//const cdn = createStaticWebsite();
+//export const cdnURL = pulumi.interpolate`https://${cdn.domainName}`;
+//export const cdnHostname = cdn.domainName;

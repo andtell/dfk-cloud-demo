@@ -3,7 +3,7 @@ import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
 import {v4 as uuidv4} from "uuid";
 
 const REGION: string = "eu-north-1";
-const TABLE_NAME = 'votes';
+const TABLE_NAME = process.env.VOTE_TABLE ?? 'votes';
 
 const client = new DynamoDBClient({ region: REGION });
 
